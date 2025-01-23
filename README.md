@@ -19,3 +19,8 @@ Backend:
 (q) Write CRUD operations in students/views.py file.
 (r) Create a students/urls.py and add the path to access it.
 (s) Add the students url path in backend/urls.py
+
+Frontend:
+(a) Install nodejs
+(b) Create a new react-typescript app frontend using vite: npm create vite@latest frontend --template react-ts
+(c) Install packages: npm bootstrap, npm react-bootstrap, npm install cdbreact, npm install @reduxjs/toolkit react-redux
