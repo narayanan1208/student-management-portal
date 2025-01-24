@@ -23,6 +23,7 @@ const AddStudentModal = () => {
 
     try {
       await dispatch(addStudent({ student })).unwrap(); // Await addStudent to complete
+      dispatch(setAddModalShowFalse());
       dispatch(getStudents());
       alert("Student added successfully!");
     } catch (error) {
