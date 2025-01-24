@@ -12,9 +12,7 @@ const Students = () => {
   );
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(getStudents());
-    }
+    dispatch(getStudents());
   }, [dispatch]);
 
   if (status === "loading") return <p>Loading...</p>;
