@@ -4,16 +4,17 @@ import { Table } from "react-bootstrap";
 import { Button, ButtonToolbar } from "react-bootstrap";
 import {
   getStudents,
-  updateStudent,
   deleteStudent,
 } from "../redux-toolkit/StudentService";
 import { RootState, AppDispatch } from "../../../store";
 import {
   setAddModalShowTrue,
   setEditModalShowTrue,
+  setUpdatedStudent,
   Student,
 } from "../redux-toolkit/StudentSlice";
 import AddStudentModal from "./AddStudentModal";
+import UpdateStudentModal from "./UpdateStudentModal";
 
 const Manage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,8 +33,8 @@ const Manage = () => {
 
   const handleUpdate = (e: MouseEvent<HTMLButtonElement>, student: Student) => {
     e.preventDefault();
+    dispatch(setUpdatedStudent(student))
     dispatch(setEditModalShowTrue());
-    dispatch(updateStudent({ student }));
   };
 
   const handleDelete = async (
@@ -101,8 +102,7 @@ const Manage = () => {
                   >
                     Delete
                   </Button>
-                  {/* <UpdateStudentModal show={editModalShow} student={editStudent} setUpdated={setIsUpdated}
-                              onHide={!editModalShow}/> */}
+                  <UpdateStudentModal />
                 </td>
               </tr>
             ))}

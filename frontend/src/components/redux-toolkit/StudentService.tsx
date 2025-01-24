@@ -31,10 +31,10 @@ export const addStudent = createAsyncThunk(
 
 export const updateStudent = createAsyncThunk(
   "students/updateStudents",
-  async ({ student }: { student: Student }, thunkAPI) => {
+  async ({ studentId, student }: { studentId: number, student: Student }, thunkAPI) => {
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8000/students/${student.studentId}/`,
+        `http://127.0.0.1:8000/students/${studentId}/`,
         {
           firstName: student.firstName,
           lastName: student.lastName,

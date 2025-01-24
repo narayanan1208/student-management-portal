@@ -22,7 +22,7 @@ export interface StudentsState {
   addModalShow: boolean;
   editModalShow: boolean;
   isUpdated: boolean;
-  updatedStudent: Student[];
+  updatedStudent: Student | null;
 }
 
 const initialState: StudentsState = {
@@ -32,7 +32,7 @@ const initialState: StudentsState = {
   addModalShow: false,
   editModalShow: false,
   isUpdated: false,
-  updatedStudent: [],
+  updatedStudent: null,
 };
 
 const studentSlice = createSlice({
@@ -57,6 +57,9 @@ const studentSlice = createSlice({
     setIsUpdatedFalse: (state) => {
       state.isUpdated = false;
     },
+    setUpdatedStudent: (state, action) => {
+        state.updatedStudent = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -135,6 +138,7 @@ export const {
   setEditModalShowFalse,
   setIsUpdatedTrue,
   setIsUpdatedFalse,
+  setUpdatedStudent,
 } = studentSlice.actions;
 
 export default studentSlice.reducer;
