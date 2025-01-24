@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getStudents, updateStudent, deleteStudent } from "./StudentService";
+import {
+  getStudents,
+  addStudent,
+  updateStudent,
+  deleteStudent,
+} from "./StudentService";
 
 export interface Student {
-  studentId: number;
+  studentId?: number;
   firstName: string;
   lastName: string;
   registrationNo: string;
@@ -79,12 +84,14 @@ const studentSlice = createSlice({
           state.students[updatedStudentIndex] = action.payload;
         }
         state.status = "success";
-        setEditModalShowFalse();
+        state.editModalShow = false;
+        state.isUpdated = true;
       })
       .addCase(updateStudent.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-        setEditModalShowFalse();
+        state.editModalShow = false;
+        state.isUpdated = false;
       })
       .addCase(deleteStudent.pending, (state) => {
         state.status = "loading";
@@ -95,10 +102,28 @@ const studentSlice = createSlice({
         state.students = state.students.filter(
           (student) => student.studentId !== action.meta.arg
         ); // Remove deleted student
+        state.isUpdated = true;
       })
       .addCase(deleteStudent.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+        state.isUpdated = false;
+      })
+      .addCase(addStudent.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(addStudent.fulfilled, (state) => {
+        state.status = "success";
+        state.students = [];
+        state.addModalShow = false;
+        state.isUpdated = true;
+      })
+      .addCase(addStudent.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+        state.addModalShow = false;
+        state.isUpdated = false;
       });
   },
 });

@@ -11,40 +11,44 @@ import { RootState, AppDispatch } from "../../../store";
 import {
   setAddModalShowTrue,
   setEditModalShowTrue,
-  setIsUpdatedTrue,
   Student,
 } from "../redux-toolkit/StudentSlice";
+import AddStudentModal from "./AddStudentModal";
 
 const Manage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { students, status } = useSelector(
+  const { students, status, isUpdated } = useSelector(
     (state: RootState) => state.students
   );
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(getStudents());
-    }
-  }, [dispatch]);
+    dispatch(getStudents());
+  }, [isUpdated, dispatch]);
 
   const handleAdd = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setAddModalShowTrue();
+    dispatch(setAddModalShowTrue());
   };
 
   const handleUpdate = (e: MouseEvent<HTMLButtonElement>, student: Student) => {
     e.preventDefault();
-    setEditModalShowTrue()
+    dispatch(setEditModalShowTrue());
     dispatch(updateStudent({ student }));
   };
 
-  const handleDelete = (
+  const handleDelete = async (
     e: MouseEvent<HTMLButtonElement>,
     studentId: number
   ) => {
     e.preventDefault();
     dispatch(deleteStudent(studentId));
-    setIsUpdatedTrue();
+
+    try {
+      await dispatch(deleteStudent(studentId)).unwrap();
+      alert("Student deleted successfully!");
+    } catch (error) {
+      alert("Failed to delete student.");
+    }
   };
 
   if (status === "loading") return <p>Loading...</p>;
@@ -91,7 +95,9 @@ const Manage = () => {
                   <Button
                     className="mr-2"
                     variant="danger"
-                    onClick={(event) => handleDelete(event, stu.studentId)}
+                    onClick={(event) =>
+                      stu.studentId && handleDelete(event, stu.studentId)
+                    }
                   >
                     Delete
                   </Button>
@@ -106,7 +112,7 @@ const Manage = () => {
           <Button variant="primary" onClick={(event) => handleAdd(event)}>
             Add Student
           </Button>
-          {/* <AddStudentModal show={addModalShow} setUpdated={setIsUpdated} onHide={!addModalShow}/> */}
+          <AddStudentModal />
         </ButtonToolbar>
       </div>
     </div>
