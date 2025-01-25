@@ -8,7 +8,7 @@ Backend:
 (f) Create a students app: python manage.py startapp students
 (g) Create a student model in students/models.py
 (h) Add the students app details, rest_framework, corsheaders in INSTALLED_APPS field present in backend/settings.py
-(i) Do the miggration for students app: python manage.py makemigrations students
+(i) Do the migration for students app: python manage.py makemigrations students
 (j) Check sql migration structure: python manage.py sqlmigrate students 0001
 (k) Do the migration: python manage.py migrate
 (l) Create a user account for django admin: python manage.py createsuperuser and set the credentials.
@@ -24,3 +24,18 @@ Frontend:
 (a) Install nodejs
 (b) Create a new react-typescript app frontend using vite: npm create vite@latest frontend --template react-ts
 (c) Install packages: npm bootstrap, npm react-bootstrap, npm install cdbreact, npm install @reduxjs/toolkit react-redux
+
+Authntication:
+(a) Install the package: pip install djangorestframework-simplejwt
+(b) Create a login app: python manage.py startapp login
+(c) Create a login model in students/models.py
+(d) Add the login app details, rest_framework_simplejwt in INSTALLED_APPS field present in backend/settings.py
+(e) Add below configuration in backend/settings.py:  
+    REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ],
+    }
+(e) Do the migration for login app: python manage.py makemigrations login
+(f) Check sql migration structure: python manage.py sqlmigrate login 0001
+(g) Do the migration: python manage.py migrate
