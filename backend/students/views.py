@@ -1,11 +1,13 @@
 # from django.shortcuts import render
 from .models import Student
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import StudentSerializer
 from django.http.response import JsonResponse, Http404
 
 class StudentView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         data = request.data

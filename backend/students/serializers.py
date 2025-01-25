@@ -6,9 +6,11 @@ class StudentSerializer(serializers.ModelSerializer):
         model = Student
         fields = (
             'studentId',
+            'standard',
             'firstName',
             'lastName',
             'registrationNo',
             'email',
-            'course'
+            'course',
+            'schoolId'
         )
