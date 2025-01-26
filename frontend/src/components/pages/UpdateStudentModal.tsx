@@ -1,8 +1,8 @@
 import { Modal, Col, Row, Form, Button } from "react-bootstrap";
-import { getStudents, updateStudent } from "../redux-toolkit/StudentService";
+import { getStudents, updateStudent } from "../redux-toolkit/student/StudentActions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../store";
-import { setEditModalShowFalse, Student } from "../redux-toolkit/StudentSlice";
+import { setEditModalShowFalse, Student } from "../redux-toolkit/student/StudentSlice";
 
 const UpdateStudentModal = () => {
   const dispatch = useDispatch<AppDispatch>();

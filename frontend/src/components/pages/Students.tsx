@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Table } from "react-bootstrap";
-import { getStudents } from "../redux-toolkit/StudentService";
+import { getStudents } from "../redux-toolkit/student/StudentActions";
 import { RootState, AppDispatch } from "../../../store";
 import "../../App.css";
 

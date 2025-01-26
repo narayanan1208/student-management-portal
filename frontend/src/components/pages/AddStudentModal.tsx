@@ -1,9 +1,9 @@
 import React from "react";
 import { Modal, Col, Row, Form, Button } from "react-bootstrap";
-import { addStudent, getStudents } from "../redux-toolkit/StudentService";
+import { addStudent, getStudents } from "../redux-toolkit/student/StudentActions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../store";
-import { setAddModalShowFalse } from "../redux-toolkit/StudentSlice";
+import { setAddModalShowFalse } from "../redux-toolkit/student/StudentSlice";
 
 const AddStudentModal = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,7 +22,7 @@ const AddStudentModal = () => {
     };
 
     try {
-      await dispatch(addStudent({ student })).unwrap(); // Await addStudent to complete
+      await dispatch(addStudent(student)).unwrap(); // Await addStudent to complete
       dispatch(setAddModalShowFalse());
       dispatch(getStudents());
       alert("Student added successfully!");
