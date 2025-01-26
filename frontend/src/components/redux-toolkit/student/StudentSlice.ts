@@ -4,7 +4,7 @@ import {
   addStudent,
   updateStudent,
   deleteStudent,
-} from "./StudentService";
+} from "./StudentActions";
 
 export interface Student {
   studentId?: number;
