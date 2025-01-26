@@ -30,3 +30,15 @@ body, html {
     z-index: 1021;
     color: white;
 }
+
+@keyframes fadeInScale {
+   0% {
+     opacity: 0;
+     transform: translate(-50%, -50%) scale(0.5); /* Start with 50% of the size */
+   }
+   100% {
+     opacity: 1;
+     transform: translate(-50%, -50%) scale(1); /* End at normal size */
+   }
+ }
+ 
