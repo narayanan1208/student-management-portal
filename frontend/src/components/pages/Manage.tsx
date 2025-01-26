@@ -2,14 +2,14 @@ import { MouseEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import { Button, ButtonToolbar } from "react-bootstrap";
-import { getStudents, deleteStudent } from "../redux-toolkit/StudentService";
+import { getStudents, deleteStudent } from "../redux-toolkit/student/StudentActions";
 import { RootState, AppDispatch } from "../../../store";
 import {
   setAddModalShowTrue,
   setEditModalShowTrue,
   setUpdatedStudent,
   Student,
-} from "../redux-toolkit/StudentSlice";
+} from "../redux-toolkit/student/StudentSlice";
 import AddStudentModal from "./AddStudentModal";
 import UpdateStudentModal from "./UpdateStudentModal";
 
