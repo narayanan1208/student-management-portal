@@ -66,6 +66,7 @@ const Manage = () => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Standard</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Registration No</th>
@@ -78,6 +79,7 @@ const Manage = () => {
               {students.map((stu) => (
                 <tr key={stu.studentId}>
                   <td>{stu.studentId}</td>
+                  <td>{stu.standard}</td>
                   <td>{stu.firstName}</td>
                   <td>{stu.lastName}</td>
                   <td>{stu.registrationNo}</td>

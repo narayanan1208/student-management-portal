@@ -14,6 +14,7 @@ const AddStudentModal = () => {
 
     const formData = new FormData(e.currentTarget); // Extract form data
     const student = {
+      standard: formData.get("Standard") as string,
       firstName: formData.get("FirstName") as string,
       lastName: formData.get("LastName") as string,
       registrationNo: formData.get("RegistrationNo") as string,
@@ -49,6 +50,15 @@ const AddStudentModal = () => {
           <Row>
             <Col sm={6}>
               <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="Standard">
+                  <Form.Label>Standard</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Standard"
+                    required
+                    placeholder=""
+                  />
+                </Form.Group>
                 <Form.Group controlId="FirstName">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control

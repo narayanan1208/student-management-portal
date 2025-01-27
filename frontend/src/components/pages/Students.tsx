@@ -12,10 +12,13 @@ const Students = () => {
   const { students, status } = useSelector(
     (state: RootState) => state.students
   );
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    dispatch(getStudents());
-  }, [dispatch]);
+    if (isAuthenticated) {
+      dispatch(getStudents()); // Call action with token
+    }
+  }, [isAuthenticated, dispatch]);
 
   if (status === "loading") return <p>Loading...</p>;
 
@@ -58,7 +61,7 @@ const Students = () => {
         {students?.length === 0 && (
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <h2>
-              No student list to display.{' '}
+              No student list to display.{" "}
               <span
                 style={{
                   color: "blue",
