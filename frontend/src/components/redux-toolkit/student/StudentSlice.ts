@@ -8,6 +8,7 @@ import {
 
 export interface Student {
   studentId?: number;
+  standard: string,
   firstName: string;
   lastName: string;
   registrationNo: string;

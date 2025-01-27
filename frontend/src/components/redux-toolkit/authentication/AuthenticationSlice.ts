@@ -55,6 +55,8 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.user;
         state.isAuthenticated = true;
+        localStorage.setItem("accessToken", action.payload.access);
+        localStorage.setItem("refreshToken", action.payload.refresh);
       });
       builder.addCase(signUpUser.rejected, (state, action) => {
         state.loading = false;

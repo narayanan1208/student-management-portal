@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { signUpUser } from "../redux-toolkit/authentication/AuthenticationActions";
 import { AppDispatch } from "../../../store";
 import { Link } from "react-router-dom";
+import { resetError } from "../redux-toolkit/authentication/AuthenticationSlice";
 
 const SignupPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
@@ -26,6 +28,7 @@ const SignupPage = () => {
       await dispatch(signUpUser(user)).unwrap(); // Await signupUser to complete
       alert("Signup successful!");
     } catch (error) {
+      dispatch(resetError());
       alert("Signup failed. Please try again.");
     }
   };
@@ -75,12 +78,27 @@ const SignupPage = () => {
           </Form.Group>
           <Form.Group controlId="Password" className="mb-3">
             <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="Password"
-              required
-              placeholder="Enter your password"
-            />
+            <div style={{ position: "relative" }}>
+              <Form.Control
+                type={showPassword ? "text" : "password"}
+                name="Password"
+                required
+                placeholder="Enter your password"
+              />
+              <Button
+                variant="outline-secondary"
+                size="sm"
+                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "10px",
+                  transform: "translateY(-50%)",
+                }}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </Button>
+            </div>
           </Form.Group>
           <Form.Group controlId="Town" className="mb-3">
             <Form.Label>Town</Form.Label>
