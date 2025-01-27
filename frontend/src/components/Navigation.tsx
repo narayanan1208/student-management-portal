@@ -71,14 +71,6 @@ const Navigation = () => {
               <NavLink to="/" className="activeClicked">
                 <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
               </NavLink>
-              {/* <NavLink to="/login" className="activeClicked">
-                <CDBSidebarMenuItem icon="sign-in-alt">
-                  Login
-                </CDBSidebarMenuItem>
-              </NavLink>
-              <NavLink to="/signup" className="activeClicked">
-                <CDBSidebarMenuItem icon="user-plus">Signup</CDBSidebarMenuItem>
-              </NavLink> */}
               <NavLink to="/students" className="activeClicked">
                 <CDBSidebarMenuItem icon="list">
                   Students List
