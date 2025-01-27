@@ -29,13 +29,25 @@ Authntication:
 (a) Install the package: pip install djangorestframework-simplejwt
 (b) Create a login app: python manage.py startapp login
 (c) Create a login model in students/models.py
-(d) Add the login app details, rest_framework_simplejwt in INSTALLED_APPS field present in backend/settings.py
+(d) Add the login app details, rest_framework_simplejwt, rest_framework_simplejwt.token_blacklist in INSTALLED_APPS field present in backend/settings.py
 (e) Add below configuration in backend/settings.py:  
     REST_FRAMEWORK = {
         'DEFAULT_AUTHENTICATION_CLASSES': [
             'rest_framework_simplejwt.authentication.JWTAuthentication',
         ],
     }
+
+    SIMPLE_JWT = {
+        'USER_ID_FIELD': 'schoolId',
+        'USER_ID_CLAIM': 'user_id',
+        'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+        'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+        'ROTATE_REFRESH_TOKENS': True,
+        'BLACKLIST_AFTER_ROTATION': True,
+        'AUTH_HEADER_TYPES': ('Bearer',),
+    }
+
+    AUTH_USER_MODEL = 'login.LoginCredentials'
 (e) Do the migration for login app: python manage.py makemigrations login
 (f) Check sql migration structure: python manage.py sqlmigrate login 0001
 (g) Do the migration: python manage.py migrate
