@@ -10,7 +10,9 @@ class StudentView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        print("POST SCHOOL ID : ", request.user.schoolId)
         data = request.data
+        data["schoolId"] = request.user.schoolId  # Add the logged-in user's ID to the data
         serializer = StudentSerializer(data=data)
 
         if serializer.is_valid():
@@ -30,8 +32,15 @@ class StudentView(APIView):
             data = self.get_student_details(pk=pk)
             serializer = StudentSerializer(data)
         else:
-            data = Student.objects.all()
-            serializer = StudentSerializer(data, many=True)
+            print("SCHOOL ID : ", request.user.schoolId)
+            school_id = request.user.schoolId 
+            students = Student.objects.filter(schoolId=school_id)
+            if not students.exists():
+                return Response(
+                    {"message": "No students are associated with this account.", "students": []},
+                    status=200
+                )
+            serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
     
     def put(self, request, pk=None):

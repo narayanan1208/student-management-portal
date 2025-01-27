@@ -48,8 +48,8 @@ INSTALLED_APPS = [
 
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'schoolId',
-    'USER_ID_CLAIM': 'user_id',
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'USER_ID_CLAIM': 'schoolId',
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,

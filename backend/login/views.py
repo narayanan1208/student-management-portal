@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
-from .serializers import LoginSerializer, SignUpSerializer
+from .serializers import LoginSerializer, SignUpSerializer, UserSerializer
 
 class SignUpView(APIView):
     permission_classes = [AllowAny]
@@ -14,8 +14,12 @@ class SignUpView(APIView):
         serializer = SignUpSerializer(data=data)
 
         if serializer.is_valid():
-            user = serializer.save()
-            return Response({"message": "User successfully created", "user": serializer.data}, status=status.HTTP_201_CREATED)
+            result = serializer.save()
+            return Response({"message": "User successfully created", "user": serializer.validated_data, "access": result["access"], "refresh": result["refresh"]}, status=status.HTTP_201_CREATED)
+            # user_serializer = UserSerializer(result["user"])
+            # return Response({"message": "User successfully created", "user": user_serializer.data,
+            #     "access": result["access"],
+            #     "refresh": result["refresh"]}, status=status.HTTP_201_CREATED)
         return Response({"message": "User creation failed", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):

@@ -3,6 +3,12 @@ from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import LoginCredentials
 
+# serializers.py
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LoginCredentials
+        fields = ('schoolId', 'schoolName', 'email', 'town', 'state', 'pincode', 'country')
+
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = LoginCredentials
@@ -16,9 +22,10 @@ class SignUpSerializer(serializers.ModelSerializer):
             'pincode',
             'country'
         )
-    
+ 
     def create(self, validated_data):
         # Check if email already exists
+        # print("Validated Data:", validated_data.get('schoolName'))  
         if LoginCredentials.objects.filter(email=validated_data['email']).exists():
             raise serializers.ValidationError({"email": "Email already exists"})
         
@@ -27,7 +34,17 @@ class SignUpSerializer(serializers.ModelSerializer):
         user = LoginCredentials(**validated_data)
         user.set_password(password)  # Hashing password before saving
         user.save()
-        return user
+
+        # Generate tokens for the new user
+        refresh = RefreshToken.for_user(user)
+        refresh["schoolId"] = str(user.schoolId)  # Store custom user identifier in the token
+        access_token = refresh.access_token
+
+        return {
+            "user": user,
+            "refresh": str(refresh),
+            "access": str(access_token),
+        }
     
 class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField() 
@@ -52,7 +69,7 @@ class LoginSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"password": "Invalid email or password."})
 
         refresh = RefreshToken.for_user(user)
-        refresh["user_id"] = str(user.schoolId)  # Store custom user identifier in the token
+        refresh["schoolId"] = str(user.schoolId)  # Store custom user identifier in the token
         access_token = refresh.access_token
 
         return {
